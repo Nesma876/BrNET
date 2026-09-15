@@ -1,0 +1,28 @@
+{
+  "created_utc": "2026-09-15T07:12:11.644473+00:00",
+  "git_commit": null,
+  "git_status": "uncommitted setup; scientific runs prohibited until commit",
+  "sha256": {
+    "scripts/audit_data.py": "0f011dea8c61137aa9052452f61e0920e2a788ea0550d206f57ec2da70e3be42",
+    "scripts/audit_environment.py": "a170f1f88190fb781f607c0ee2da4e033689b21e32fcb90b5db1a66ffa10597a",
+    "scripts/audit_external.py": "4ba19e04bb51d3498dbe74ab27fa3f878841d95814a9ef33e40a95c017257ecb",
+    "scripts/download_public.py": "8c4cb11ba57b4fcd9414b3abf8d4fd88739fe51b793f69e1acfadbb9426ec3cc",
+    "scripts/exact_overlap.py": "07959dc6034d95324d3e5dd9e82da36a75a9e6479bac4b1c9eb63dce05d74bd4",
+    "scripts/model_summary.py": "a0d164738021e7c7045d5d6807f971ac30751d66834d2015777536da505b504e",
+    "scripts/reproduce_all.py": "751484736fe53ea6e3d875b6eb04cc9ad5be1491ab867007fc38e1c0f5be0869",
+    "scripts/setup_report.py": "90070bc261f120a96b24eaa65e91b023a1599ee1cde660f63cf6bca8ef304043",
+    "scripts/smoke_test.py": "2314690cd150fe1a620136aaf153c39e5747d0d83f96bbd36288a180fecaf395",
+    "src/data/splits.py": "57b5fb995b9e8fc05808a8f68f69ac0d652d406bbb371b7431ae7ab03ddafe96",
+    "src/evaluation/predictions.py": "5cdac4c5e4e7e11ef7056ff8358ac0ee2cc9d0e9225a736755580255e229f5d5",
+    "src/models/brnet.py": "b7f1bd0b6801a06d466b406ea883158a2c8d0c7bb7d8f278c55db2afcffdc638",
+    "src/training/seed.py": "e8b941b7e05b6c622f95e9e062acc14896377e3b7fd690cfebf880bf62e584ed",
+    "configs/protocol_v2.yaml": "2b807e46bd87360eed1f54425dee654c8a9d0ef846247bc210243babe7896db2",
+    "environment/initial-pip-freeze.txt": "753f7b518f9bfe434a1430db5fb219f6b091121216cf4f872d549a8201503a85",
+    "environment/README.md": "ffae003933bb0c23e1c2d2da38221dbb618ff189fb50dbd1958bce5b7b280a19",
+    "environment/requirements-lock.txt": "8d064dd033f8dd15959c95757f3b77f07ea3d00edf1ff410a1e1eebee4b06387",
+    "tests/test_integrity.py": "2435af6c8ddb9589cdf3a68d471e808968cf576738532af0c3e1cac370a7f3b1",
+    "tests/test_mask_alignment.py": "ae15aaa82f2a6d69f95d324bd9be04aa8714c14df659116f9f97493386ba19e8",
+    "tests/test_model.py": "aa226c576b0161e5aed4a7304de17e052eae6931f6d535730dcc5d422804b4cf",
+    "tests/test_predictions.py": "c100c73e5f65d326dea018cdcb2719ddef2970ee5c3e3c3d5a02580472699ca9"
+  }
+}

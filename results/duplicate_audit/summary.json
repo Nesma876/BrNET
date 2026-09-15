@@ -1,0 +1,11 @@
+{
+  "status": "partial_exact_only",
+  "images": 4201,
+  "pair_rows": 0,
+  "cross_source_pairs": 0,
+  "caveat": "Native decoded hashes preserve dtype/channels; canonical cross-format grayscale, perceptual and embedding review remain pending. No independence conclusion.",
+  "perceptual_status": "pending",
+  "embedding_status": "pending",
+  "manual_review_status": "pending",
+  "aggregate_status": "unavailable"
+}
