@@ -3,13 +3,13 @@ BrNet -- Patient-disjoint CV rigoureux (réponse au reviewer, Points 1 et 2)
 =================================================================================
 Corrige deux problèmes signalés par le reviewer :
 
-POINT 1 (incohérence numérique) : le tableau XAI/masking utilisait un seul
-fold (79.77% d'accuracy sur CE fold), incohérent avec le 70.84% publié
-(moyenne des 5 folds). Ce script sauvegarde un fichier UNIQUE de prédictions
-out-of-fold (chaque image test évaluée exactement une fois, dans son propre
-fold), qui doit servir de source unique pour TOUS les tableaux du papier
-(accuracy globale, XAI, masking, matched-area). Sur ce fichier, l'accuracy
-globale doit être cohérente avec 70.84% par construction.
+POINT 1 (cohérence numérique) : ce script sauvegarde un fichier UNIQUE de
+prédictions out-of-fold (chaque image test évaluée exactement une fois, dans
+son propre fold), qui doit servir de source unique pour les analyses dérivées.
+La valeur historique de 70.84% a été retirée comme non reconstructible : elle
+ne constitue ni une valeur attendue ni un contrôle de validité pour ce script.
+Le résultat canonique doit être calculé directement à partir du fichier OOF,
+après moyenne des probabilités des trois seeds puis argmax.
 
 POINT 2 (validation interne non patient-disjoint) : le validation_split=0.1
 de Keras découpait le train set SANS respecter les patients (fuite possible
@@ -202,7 +202,7 @@ if __name__ == "__main__":
     print(f"Accuracy globale (moyenne 3 seeds, pooled out-of-fold) : {overall_acc:.4f}")
     print(f"Macro-F1 globale : {overall_macro_f1:.4f}")
     print(f"Macro-AUC globale (one-vs-rest) : {overall_macro_auc:.4f}")
-    print("(Ce chiffre doit être proche de 70.84% -- comparer au résultat déjà publié)")
+    print("Résultat calculé directement depuis le registre OOF canonique; aucune valeur historique n'est utilisée comme cible.")
 
     print("\n=== Accuracy par fold (sur la moyenne des 3 seeds, out-of-fold) ===")
     for fold_idx in range(N_FOLDS):
