@@ -1,0 +1,8 @@
+# Additional dependencies imported by the historical experiment scripts.
+# Exact historical versions were not archived; resolve these alongside requirements.txt.
+opencv-python
+tensorflow
+tensorflow-hub
+timm
+statsmodels
+matplotlib

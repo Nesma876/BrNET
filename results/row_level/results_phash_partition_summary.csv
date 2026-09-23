@@ -1,0 +1,4 @@
+partition,n_images_with_duplicate,pct_of_contaminated,n_total_contaminated,n_total_external
+train,561,81.9,685,1137
+validation,78,11.4,685,1137
+test,79,11.5,685,1137

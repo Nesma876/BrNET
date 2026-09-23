@@ -1,5 +1,7 @@
 # BrNet reproducibility repository
 
+[![Verify archived results](https://github.com/Nesma876/BrNET/actions/workflows/verify.yml/badge.svg)](https://github.com/Nesma876/BrNET/actions/workflows/verify.yml)
+
 Code and frozen numerical outputs accompanying the BrNet major revision.
 
 The repository separates two evidence levels:
@@ -18,7 +20,13 @@ The repository separates two evidence levels:
 
 Slice-level paired comparisons are secondary/descriptive because slices are clustered within patients. Patient-level comparisons are the primary inferential analysis. Nonsignificant patient-level results are not interpreted as equivalence or non-inferiority.
 
-The exact frozen tables are in [`results/FROZEN_MODEL_COMPARISON.csv`](results/FROZEN_MODEL_COMPARISON.csv).
+The exact frozen tables are in [`results/FROZEN_MODEL_COMPARISON.csv`](results/FROZEN_MODEL_COMPARISON.csv). The published row-level OOF tables can be checked in one command:
+
+```bash
+python scripts/verify_frozen_results.py
+```
+
+See [`docs/REPRODUCE.md`](docs/REPRODUCE.md) for the checks performed.
 
 ## Repository layout
 
@@ -32,12 +40,13 @@ The exact frozen tables are in [`results/FROZEN_MODEL_COMPARISON.csv`](results/F
 
 ## Environment
 
-Python dependencies are pinned in [`requirements.txt`](requirements.txt). Several historical scripts additionally require TensorFlow/Keras, OpenCV, `timm`, and `statsmodels`; exact imports are summarized in the script inventory. GPU training is not required to inspect or recompute metrics from existing prediction CSVs.
+Core dependencies are pinned in [`requirements.txt`](requirements.txt). Historical experiment scripts additionally use the packages listed in [`requirements-experiments.txt`](requirements-experiments.txt); their exact historical versions were not archived, which is stated explicitly rather than guessed. GPU training is not required to recompute the frozen metrics from the published prediction CSVs.
 
 ```bash
 python -m venv .venv
 python -m pip install -r requirements.txt
 python -m pytest -q
+python scripts/verify_frozen_results.py
 ```
 
 Dataset and checkpoint locations in the historical Kaggle scripts are constants near the top of each file. Adapt them to the local environment without changing preprocessing or aggregation rules.
