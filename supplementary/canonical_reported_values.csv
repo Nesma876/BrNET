@@ -1,0 +1,20 @@
+item,value,denominator_or_context
+brnet_slice_correct,2594,3064
+brnet_slice_accuracy_percent,84.6606,pooled OOF after seed-probability averaging
+brnet_patient_correct,201,233
+brnet_patient_accuracy_percent,86.2661,patient aggregation
+patient_mcnemar_mobilenetv2_exact_p,0.7110711,BrNet vs MobileNetV2
+patient_mcnemar_mobilenetv2_holm_p,0.7110711,BrNet vs MobileNetV2
+patient_mcnemar_efficientnetb7_exact_p,0.2294810,BrNet vs EfficientNetB7
+patient_mcnemar_efficientnetb7_holm_p,0.4589620,BrNet vs EfficientNetB7
+patient_mcnemar_vit_b16_exact_p,0.1220781,BrNet vs ViT-B/16
+patient_mcnemar_vit_b16_holm_p,0.3662344,BrNet vs ViT-B/16
+external_unique_with_match,685,1137 readable external images
+phash_match_pairs,880,distance <= 10/256
+phash_exact_zero_pairs,466,distance = 0
+external_unique_exact_zero,433,1137 readable external images
+external_unique_train_match,561,685 contaminated external images
+external_unique_validation_match,78,685 contaminated external images
+external_unique_test_match,79,685 contaminated external images
+historical_patient_disjoint_percent,70.84,withdrawn as unreconstructable
+historical_legacy_percent,96.44,descriptive only

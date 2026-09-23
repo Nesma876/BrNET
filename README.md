@@ -18,6 +18,15 @@ The repository separates two evidence levels:
 | EfficientNetB7 | 89.0339% | 89.6996% |
 | ViT-B/16 | 86.6188% | 90.1288% |
 
+Canonical document-control values:
+
+- BrNet pooled OOF: **2,594/3,064 = 84.6606%** at slice level and **201/233 = 86.2661%** at patient level.
+- Patient-level exact/Holm p-values: MobileNetV2 **0.7110711/0.7110711**; EfficientNetB7 **0.2294810/0.4589620**; ViT-B/16 **0.1220781/0.3662344**.
+- Provenance audit: **685/1,137** unique external images with a match; **880** match pairs; **466** exact-distance-zero pairs involving **433** unique external images; train/validation/test unique-image counts **561/78/79**.
+- Figure 3, in display order: benchmark/external **0375.jpg/186.jpg**, **0799.jpg/154.jpg**, **0074.jpg/130.jpg**, and **1501.jpg/192.jpg**; all four have pHash distance zero.
+- The historical **70.84%** value is withdrawn as unreconstructable; it is not interpreted as directly comparable to or corrected by **84.6606%**.
+- The historical **96.44%** value is retained only as a descriptive benchmark and is not used for model selection, uncertainty estimation, or inferential comparison.
+
 Slice-level paired comparisons are secondary/descriptive because slices are clustered within patients. Patient-level comparisons are the primary inferential analysis. Nonsignificant patient-level results are not interpreted as equivalence or non-inferiority.
 
 The exact frozen tables are in [`results/FROZEN_MODEL_COMPARISON.csv`](results/FROZEN_MODEL_COMPARISON.csv). The published row-level OOF tables can be checked in one command:
@@ -37,6 +46,7 @@ See [`docs/REPRODUCE.md`](docs/REPRODUCE.md) for the checks performed.
 - `results/`: canonical small numerical tables used in the paper revision.
 - `tests/`: integrity and metric tests.
 - `docs/`: provenance, script inventory, and known limitations.
+- `supplementary/`: fold-by-seed stability tables and the machine-readable Figure 3 selection.
 
 ## Environment
 
@@ -65,6 +75,8 @@ Dataset and checkpoint locations in the historical Kaggle scripts are constants 
 - MobileNetV2: dedicated `mobilenet_v2.preprocess_input` correction.
 - ViT-B/16: `timm` `vit_base_patch16_224`, frozen backbone, trainable `768 → 128 → 3` readout containing **98,819 trainable parameters**. The value 98,948 applies to a four-class head and not to the three-class patient-disjoint experiment. Exact preprocessing and arithmetic are documented in [`docs/VIT_PREPROCESSING.md`](docs/VIT_PREPROCESSING.md).
 - pHash: 16×16 perceptual hashes with Hamming-distance threshold 10/256; unique-image counts and match-pair counts are reported separately.
+- Fold-by-seed reporting: all 15 BrNet, MobileNetV2, and EfficientNetB7 runs are archived in `supplementary/`. Only six ViT-B/16 intermediate runs survived, so the ViT table is explicitly labeled partial.
+- Figure 3: its four exact-distance-zero examples are tied to `supplementary/figure3_selected_pairs.csv`; quantitative conclusions use the complete 880-pair table.
 
 ## Citation and license
 
