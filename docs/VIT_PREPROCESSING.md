@@ -25,4 +25,22 @@ Linear(128, 3)
 
 Only the readout is optimized, using Adam with learning rate `2e-5`. Cross-entropy operates on logits. At inference, softmax probabilities are computed independently for seeds 42, 43, and 44, averaged for each held-out slice, and converted to the final prediction by argmax.
 
+## Trainable parameter count
+
+For the patient-disjoint three-class experiment, `vit.num_features = 768` and the readout contains:
+
+```text
+Linear(768, 128): 768 × 128 + 128 = 98,432
+Linear(128, 3):   128 × 3 + 3     =    387
+Total trainable parameters:          98,819
+```
+
+The previously quoted value `98,948` corresponds instead to a four-class output layer:
+
+```text
+98,432 + (128 × 4 + 4) = 98,948
+```
+
+It must not be used for the three-class Figshare patient-disjoint ViT-B/16 experiment.
+
 SHA-256 of the archived source script: `53239bd373b9b85dca0e46712b8abc409d5ff9fa81c383c163c566c0d5439d09`.

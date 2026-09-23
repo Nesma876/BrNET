@@ -54,7 +54,7 @@ Dataset and checkpoint locations in the historical Kaggle scripts are constants 
 
 - BrNet patient-disjoint OOF: five patient-disjoint folds, seeds 42/43/44, pooled by averaging class probabilities before argmax.
 - MobileNetV2: dedicated `mobilenet_v2.preprocess_input` correction.
-- ViT-B/16: `timm` `vit_base_patch16_224`, frozen backbone, trainable `num_features → 128 → 3` readout; exact preprocessing is documented in [`docs/VIT_PREPROCESSING.md`](docs/VIT_PREPROCESSING.md).
+- ViT-B/16: `timm` `vit_base_patch16_224`, frozen backbone, trainable `768 → 128 → 3` readout containing **98,819 trainable parameters**. The value 98,948 applies to a four-class head and not to the three-class patient-disjoint experiment. Exact preprocessing and arithmetic are documented in [`docs/VIT_PREPROCESSING.md`](docs/VIT_PREPROCESSING.md).
 - pHash: 16×16 perceptual hashes with Hamming-distance threshold 10/256; unique-image counts and match-pair counts are reported separately.
 
 ## Citation and license
