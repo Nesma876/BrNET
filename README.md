@@ -68,4 +68,6 @@ Dataset and checkpoint locations in the historical Kaggle scripts are constants 
 
 ## Citation and license
 
-Please cite the associated paper when using this code. A software license has not been added because no license choice was supplied by the authors; repository users should therefore treat the code as all rights reserved until a license is selected.
+Please cite the associated paper when using this code. Machine-readable citation metadata, including the complete author list and affiliations, are provided in [`CITATION.cff`](CITATION.cff).
+
+A software license has not been added because no license choice was supplied by the authors; repository users should therefore treat the code as all rights reserved until a license is selected.
