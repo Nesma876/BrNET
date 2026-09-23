@@ -1,0 +1,21 @@
+track: TRACK_B_LEGACY_EXTERNAL
+setup_commit: 0a01690dec6fdd062ca84e6591b6487d0ef9f46a
+status: DATA_BLOCKED_NOT_FROZEN
+classes:
+- healthy
+- glioma
+- meningioma
+- pituitary
+development: aggregate_7023_expected_not_observed
+external: mendeley_v2_1137_observed
+unit: image_dependence_unknown
+purpose: legacy descriptive and external-source dataset-shift stress test
+training_authorized: false
+checkpoint_namespace: checkpoints/TRACK_B_LEGACY_EXTERNAL
+prediction_namespace: predictions/TRACK_B_LEGACY_EXTERNAL
+freeze_gates:
+- Kaggle_recovery
+- aggregate_ingestion
+- aggregate_split_and_cross_source_duplicate_review
+external_selection: false
+figshare_three_class_models_prohibited: true

@@ -1,0 +1,55 @@
+model: mobilenet_v2
+setup_commit: 0a01690dec6fdd062ca84e6591b6487d0ef9f46a
+track: TRACK_A_PRIMARY
+classes: 3
+weights: MobileNet_V2_Weights.IMAGENET1K_V2
+input_size: 224
+resize_short_edge: 232
+interpolation: bilinear
+batch_size: 32
+partial_layers: features.17_and_features.18_and_classifier
+rates:
+  frozen:
+  - 0.001
+  - 0.003
+  partial:
+  - 0.0001
+  - 0.0003
+  full:
+  - 1.0e-05
+  - 3.0e-05
+common:
+  library: torchvision_0.21.0
+  channels: replicate_grayscale_to_RGB
+  normalization_mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  normalization_std:
+  - 0.229
+  - 0.224
+  - 0.225
+  optimizer: AdamW
+  weight_decay: 0.0001
+  head: replace_final_linear_with_three_class_linear
+  frozen_batchnorm: eval_in_frozen_modules
+  trials: three_regimes_times_two_learning_rates
+selection:
+  criterion: minimum_internal_validation_cross_entropy
+  tie_break: earliest_epoch_then_lexical_config_id
+  max_epochs: 100
+  patience: 15
+  min_delta: 0.0
+  scheduler:
+    name: ReduceLROnPlateau
+    factor: 0.5
+    patience: 5
+  search_seed: 42
+  trials_per_model_per_outer_fold: 6
+  rerun_selected_config_seeds:
+  - 42
+  - 43
+  - 44
+  test_access: only_after_checkpoint_and_config_lock
+  final_fit: retain_internal_validation_no_refit_on_validation
+launch_authorized: false

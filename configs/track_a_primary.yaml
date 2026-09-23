@@ -1,0 +1,248 @@
+selection:
+  criterion: minimum_internal_validation_cross_entropy
+  tie_break: earliest_epoch_then_lexical_config_id
+  max_epochs: 100
+  patience: 15
+  min_delta: 0.0
+  scheduler:
+    name: ReduceLROnPlateau
+    factor: 0.5
+    patience: 5
+  search_seed: 42
+  trials_per_model_per_outer_fold: 6
+  rerun_selected_config_seeds:
+  - 42
+  - 43
+  - 44
+  test_access: only_after_checkpoint_and_config_lock
+  final_fit: retain_internal_validation_no_refit_on_validation
+brnet:
+  input:
+  - 1
+  - 256
+  - 256
+  preprocessing: per_image_minmax_to_0_1_constant_images_fail_then_bilinear_resize
+  head_classes:
+    reference: 4
+    figshare: 3
+  optimizer: Adam
+  learning_rates:
+  - 0.0001
+  - 0.0003
+  - 0.001
+  weight_decay:
+  - 0.0
+  - 0.0001
+  batch_size: 32
+baselines:
+  common:
+    library: torchvision_0.21.0
+    channels: replicate_grayscale_to_RGB
+    normalization_mean:
+    - 0.485
+    - 0.456
+    - 0.406
+    normalization_std:
+    - 0.229
+    - 0.224
+    - 0.225
+    optimizer: AdamW
+    weight_decay: 0.0001
+    head: replace_final_linear_with_three_class_linear
+    frozen_batchnorm: eval_in_frozen_modules
+    trials: three_regimes_times_two_learning_rates
+  mobilenet_v2:
+    weights: MobileNet_V2_Weights.IMAGENET1K_V2
+    input_size: 224
+    resize_short_edge: 232
+    interpolation: bilinear
+    batch_size: 32
+    partial_layers: features.17_and_features.18_and_classifier
+    rates:
+      frozen:
+      - 0.001
+      - 0.003
+      partial:
+      - 0.0001
+      - 0.0003
+      full:
+      - 1.0e-05
+      - 3.0e-05
+  efficientnet_b7:
+    weights: EfficientNet_B7_Weights.IMAGENET1K_V1
+    input_size: 600
+    resize_short_edge: 600
+    interpolation: bicubic
+    batch_size: 2
+    gradient_accumulation_steps: 16
+    partial_layers: features.8_and_classifier
+    rates:
+      frozen:
+      - 0.001
+      - 0.003
+      partial:
+      - 3.0e-05
+      - 0.0001
+      full:
+      - 3.0e-06
+      - 1.0e-05
+  vit_b_16:
+    weights: ViT_B_16_Weights.IMAGENET1K_V1
+    input_size: 224
+    resize_short_edge: 256
+    interpolation: bilinear
+    batch_size: 16
+    gradient_accumulation_steps: 2
+    partial_layers: encoder.layers.encoder_layer_10_and_11_and_encoder.ln_and_heads
+    rates:
+      frozen:
+      - 0.001
+      - 0.003
+      partial:
+      - 3.0e-05
+      - 0.0001
+      full:
+      - 3.0e-06
+      - 1.0e-05
+augmentation:
+  training_only:
+    rotation_degrees: 10
+    horizontal_flip_probability: 0.0
+  validation_and_test: no_augmentation
+  pretrained_geometry: official_resize_then_center_crop
+oof:
+  seed_table: predictions/figshare_oof_by_seed.parquet
+  ensemble_table: predictions/figshare_oof_ensemble.parquet
+  combination: mean_probabilities_of_all_three_seeds_within_outer_fold_then_argmax
+  ties: lowest_class_index
+  required_columns:
+  - dataset
+  - patient_id
+  - image_id
+  - fold
+  - seed
+  - true_label
+  - predicted_label
+  - p_class0
+  - p_class1
+  - p_class2
+  - correct
+  - mask_available
+  - checkpoint
+  - git_commit
+  - protocol_sha256
+  - manifest_sha256
+  - environment_sha256
+  - checkpoint_sha256
+  immutable: true
+  missing_seed: fail
+  schema_uniqueness:
+  - dataset
+  - image_id
+  - seed
+evaluation:
+  primary_unit: patient
+  primary_metric: balanced_accuracy
+  patient_aggregation: mean_slice_probabilities_then_argmax
+  sensitivity: majority_vote_ties_use_mean_probabilities_then_lowest_class_index
+  metrics:
+  - accuracy
+  - balanced_accuracy
+  - macro_f1
+  - precision
+  - recall
+  - specificity
+  - npv
+  - ppv
+  - ovr_auc
+  - confusion_matrix
+  - multiclass_brier_sum
+  - ece_15_equal_width_bins
+  bootstrap:
+    unit: patient
+    stratified_by: patient_true_class
+    draws: 10000
+    seed: 2026
+    interval: percentile_95
+  undefined_metrics: null_with_reason
+xai:
+  layer: features.conv4
+  expected_shape:
+  - 64
+  - 28
+  - 28
+  population: all_eligible_OOF_tumor_images_with_masks
+  targets:
+  - ensemble_predicted_class
+  - true_class
+  ensemble_explanation: mean_three_seed_maps_for_same_target_then_normalize
+  methods:
+  - GradCAM
+  - IntegratedGradients
+  normalization: nonnegative_map_minmax_constant_maps_zero_and_flagged
+  mask_resampling: nearest_neighbor_same_image_geometry
+  metrics:
+  - pointing_game
+  - saliency_mass
+  - iou_sweep
+  - max_iou_over_all_unique_thresholds_descriptive_oracle
+  - enrichment
+  - auprc
+  thresholds:
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.4
+  - 0.5
+  - 0.6
+  - 0.7
+  - 0.8
+  - 0.9
+  nulls:
+  - uniform
+  - seeded_random
+  - center_gaussian
+  - image_gradient_edges
+  sanity: cascading_parameter_randomization
+  label_randomization: compute_conditional
+  uncertainty: patient_cluster_bootstrap_10000
+  strata:
+  - true_class
+  - correct
+  - predicted_class
+  integrated_gradients:
+    baseline: zero_in_normalized_input
+    steps: 64
+    integration: trapezoid
+    completeness_delta: record
+track: TRACK_A_PRIMARY
+setup_commit: 0a01690dec6fdd062ca84e6591b6487d0ef9f46a
+status: DESIGN_FROZEN_EXECUTION_GATED
+dataset: figshare_v8
+classes:
+- glioma
+- meningioma
+- pituitary
+primary_unit: patient
+primary_endpoint: patient_balanced_accuracy
+training_authorized: false
+slice_label: slice-level performance on images from held-out patients
+splits:
+  outer: StratifiedGroupKFold
+  inner: StratifiedGroupKFold
+  outer_seed: 2026
+  inner_seed: 2026
+  n_splits: 5
+  inner_validation_index: 0
+  unit: one_row_per_patient
+  optimization_seeds:
+  - 42
+  - 43
+  - 44
+scientific_execution_gates:
+- duplicate_review
+- mask_review
+- GPU_budget_review
+- campaign_approval
+checkpoint_namespace: checkpoints/TRACK_A_PRIMARY
+prediction_namespace: predictions/TRACK_A_PRIMARY

@@ -1,0 +1,15 @@
+analysis_level,model_or_comparison,n,correct,accuracy,n00,n01,n10,n11,exact_p,holm_adjusted_p,reject_0_05,interpretation
+slice,BrNet,3064,2594,0.8466057441253264,,,,,,,,descriptive/secondary
+patient,BrNet,233,201,0.8626609442060086,,,,,,,,primary inferential unit
+slice,MobileNetV2 corrected,3064,2692,0.8785900783289817,,,,,,,,descriptive/secondary
+patient,MobileNetV2 corrected,233,204,0.8755364806866953,,,,,,,,primary inferential unit
+slice,EfficientNetB7,3064,2728,0.8903394255874674,,,,,,,,descriptive/secondary
+patient,EfficientNetB7,233,209,0.8969957081545065,,,,,,,,primary inferential unit
+slice,ViT-B/16,3064,2654,0.8661879895561357,,,,,,,,descriptive/secondary
+patient,ViT-B/16,233,210,0.9012875536480687,,,,,,,,primary inferential unit
+slice,BrNet vs MobileNetV2 corrected,3064,,,185,285,187,2407,7.466226352130249e-06,1.4932452704260497e-05,True,descriptive/secondary
+slice,BrNet vs EfficientNetB7,3064,,,154,316,182,2412,2.0321102043176834e-09,6.09633061295305e-09,True,descriptive/secondary
+slice,BrNet vs ViT-B/16,3064,,,196,274,214,2380,0.007503832239421914,0.007503832239421914,True,descriptive/secondary
+patient,BrNet vs MobileNetV2 corrected,233,,,16,16,13,188,0.711071103811264,0.711071103811264,False,primary paired inference; nonsignificance is not equivalence
+patient,BrNet vs EfficientNetB7,233,,,11,21,13,188,0.22948101302608848,0.45896202605217695,False,primary paired inference; nonsignificance is not equivalence
+patient,BrNet vs ViT-B/16,233,,,14,18,9,192,0.12207812070846558,0.36623436212539673,False,primary paired inference; nonsignificance is not equivalence

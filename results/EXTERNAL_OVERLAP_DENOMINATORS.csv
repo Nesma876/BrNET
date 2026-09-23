@@ -1,0 +1,8 @@
+unit,category,count,denominator,provenance
+unique_external_image,any pHash match <=10,685,1137,recomputed from pair CSV
+unique_external_image,exact distance 0,433,1137,recomputed from pair CSV
+match_pair,any pHash match <=10,880,,recomputed from pair CSV
+match_pair,exact distance 0,466,,recomputed from pair CSV
+unique_external_image_within_partition,train,561,685,summary only; pair CSV has no partition field
+unique_external_image_within_partition,validation,78,685,summary only; pair CSV has no partition field
+unique_external_image_within_partition,test,79,685,summary only; pair CSV has no partition field
