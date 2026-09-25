@@ -34,6 +34,7 @@ Fold & Seed & Train & Inner val. & Test & Accuracy & Macro-F1 \\
 \bottomrule
 \end{longtable}
 The canonical pooled OOF estimate is computed after per-image probability averaging across seeds, not by averaging these 15 accuracies.
+The run-level results show inter-fold heterogeneity: fold~1 ranges from 70.31\% to 79.12\% accuracy, whereas several runs in folds 2--5 are approximately 83--87\%. Table~S1 is a stability diagnostic rather than a replacement for the canonical pooled OOF estimate.
 
 \section*{Table S2: matched-area perturbation sensitivity analysis}
 The recovered table contains 2,594 correctly classified images with masks. A valid matched control was unavailable for 86, leaving 2,508 pairs. Parentheses give patient-clustered 95\% confidence intervals from 2,000 bootstrap replications (seed 123).
@@ -81,6 +82,20 @@ EfficientNetB7&64,426,011&104.09&$104.65\pm2.65$&79.47\\
 \end{tabular}
 \end{center}
 These measurements do not establish hardware-independent runtime superiority.
+
+\section*{Table S5: pHash threshold sensitivity}
+Distance zero is treated as the strongest duplication evidence. The $d\leq10$ threshold is an inclusive screen for compression, resizing, or minor intensity transformations.
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+Threshold & Match pairs & Unique external images & Percentage of 1,137\\
+\midrule
+$d=0$&466&433&38.08\%\\
+$d\leq5$&813&681&59.89\%\\
+$d\leq10$&880&685&60.25\%\\
+\bottomrule
+\end{tabular}
+\end{center}
 
 \section*{Machine-readable artifacts}
 Source tables, row-level outputs, logs, and the evidence-level manifest are stored in \texttt{supplementary/} and \texttt{results/audit\_v2/} of \url{https://github.com/Nesma876/BrNET}.

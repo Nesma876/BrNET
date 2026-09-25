@@ -1,0 +1,4 @@
+threshold,hash_bits,match_pairs,unique_external_images,total_external_images,external_images_percent
+0,256,466,433,1137,38.082673702726474
+5,256,813,681,1137,59.894459102902374
+10,256,880,685,1137,60.24626209322779

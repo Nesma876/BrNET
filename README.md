@@ -23,7 +23,9 @@ Canonical document-control values:
 
 - BrNet pooled OOF: **2,594/3,064 = 84.6606%** at slice level and **201/233 = 86.2661%** at patient level.
 - Patient-level exact/Holm p-values: MobileNetV2 **0.7110711/0.7110711**; EfficientNetB7 **0.2294810/0.4589620**; ViT-B/16 **0.1220781/0.3662344**.
+- Paired patient-level accuracy differences (BrNet minus baseline; 95% patient-bootstrap CI): MobileNetV2 **−1.29 pp [−6.01, 3.00]**; EfficientNetB7 **−3.43 pp [−8.15, 1.29]**; ViT-B/16 **−3.86 pp [−8.15, 0.43]**.
 - Provenance audit: **685/1,137** unique external images with a match; **880** match pairs; **466** exact-distance-zero pairs involving **433** unique external images; train/validation/test unique-image counts **561/78/79**.
+- pHash sensitivity: **433/466** unique images/pairs at distance 0, **681/813** at distance ≤5, and **685/880** at distance ≤10.
 - Figure 3, in display order: benchmark/external **0375.jpg/186.jpg**, **0799.jpg/154.jpg**, **0074.jpg/130.jpg**, and **1501.jpg/192.jpg**; all four have pHash distance zero.
 - The historical **70.84%** value is withdrawn as unreconstructable; it is not interpreted as directly comparable to or corrected by **84.6606%**.
 - The historical **96.44%** value is retained only as a descriptive benchmark and is not used for model selection, uncertainty estimation, or inferential comparison.
@@ -53,6 +55,7 @@ See [`docs/REPRODUCE.md`](docs/REPRODUCE.md) for the checks performed.
 - `data/manifests/`: lightweight dataset manifests; raw MRI data are not distributed.
 - `results/`: canonical small numerical tables used in the paper revision.
 - `results/audit_v2/`: later row-level outputs, raw compute timings, execution logs, and an evidence-level manifest.
+- `results/revision_uncertainty/`: patient-clustered Grad-CAM intervals, paired patient-level accuracy-difference intervals, and pHash threshold sensitivity.
 - `tests/`: integrity and metric tests.
 - `docs/`: provenance, script inventory, and known limitations.
 - `supplementary/`: submission-ready `Online_Resource_1.tex`, fold-by-seed stability tables, and the machine-readable Figure 3 selection.
@@ -84,7 +87,7 @@ Dataset and checkpoint locations in the historical Kaggle scripts are constants 
 - BrNet patient-disjoint OOF: five patient-disjoint folds, seeds 42/43/44, pooled by averaging class probabilities before argmax.
 - MobileNetV2: dedicated `mobilenet_v2.preprocess_input` correction.
 - ViT-B/16: `timm` `vit_base_patch16_224`, frozen backbone, trainable `768 → 128 → 3` readout containing **98,819 trainable parameters**. The value 98,948 applies to a four-class head and not to the three-class patient-disjoint experiment. Exact preprocessing and arithmetic are documented in [`docs/VIT_PREPROCESSING.md`](docs/VIT_PREPROCESSING.md).
-- pHash: 16×16 perceptual hashes with Hamming-distance threshold 10/256; unique-image counts and match-pair counts are reported separately.
+- pHash: 16×16 perceptual hashes; distance 0 is the strongest duplication evidence and distance ≤10 is an inclusive screening threshold. Sensitivity at distances 0, 5, and 10 is archived; unique-image counts and match-pair counts are reported separately.
 - Fold-by-seed reporting: all 15 BrNet, MobileNetV2, and EfficientNetB7 runs are archived in `supplementary/`. Only six ViT-B/16 intermediate runs survived, so the ViT table is explicitly labeled partial.
 - Figure 3: its four exact-distance-zero examples are tied to `supplementary/figure3_selected_pairs.csv`; quantitative conclusions use the complete 880-pair table.
 
