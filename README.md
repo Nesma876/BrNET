@@ -88,7 +88,7 @@ Dataset and checkpoint locations in the historical Kaggle scripts are constants 
 
 - BrNet patient-disjoint OOF: five patient-disjoint folds, seeds 42/43/44, pooled by averaging class probabilities before argmax.
 - MobileNetV2: dedicated `mobilenet_v2.preprocess_input` correction.
-- ViT-B/16: `timm` `vit_base_patch16_224`, frozen backbone, trainable `768 → 128 → 3` readout containing **98,819 trainable parameters**. The value 98,948 applies to a four-class head and not to the three-class patient-disjoint experiment. Exact preprocessing and arithmetic are documented in [`docs/VIT_PREPROCESSING.md`](docs/VIT_PREPROCESSING.md).
+- ViT-B/16: `timm` `vit_base_patch16_224`, frozen backbone, trainable `768 → 128 → 3` readout containing **98,819 trainable parameters**, Adam at `2e-5`, batch size **32**, at most **100 epochs**, and validation-loss early stopping with patience **15** and best-state restoration. The value 98,948 applies to a four-class head and not to the three-class patient-disjoint experiment. Exact preprocessing, training settings, and arithmetic are documented in [`docs/VIT_PREPROCESSING.md`](docs/VIT_PREPROCESSING.md).
 - pHash: 16×16 perceptual hashes; distance 0 is the strongest duplication evidence and distance ≤10 is an inclusive screening threshold. Sensitivity at distances 0, 5, and 10 is archived; unique-image counts and match-pair counts are reported separately.
 - Fold-by-seed reporting: all 15 BrNet, MobileNetV2, and EfficientNetB7 runs are archived in `supplementary/`. Only six ViT-B/16 intermediate runs survived, so the ViT table is explicitly labeled partial.
 - Figure 3: its four exact-distance-zero examples are tied to `supplementary/figure3_selected_pairs.csv`; quantitative conclusions use the complete 880-pair table.

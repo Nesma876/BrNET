@@ -23,7 +23,7 @@ Dropout(0.3)
 Linear(128, 3)
 ```
 
-Only the readout is optimized, using Adam with learning rate `2e-5`. Cross-entropy operates on logits. At inference, softmax probabilities are computed independently for seeds 42, 43, and 44, averaged for each held-out slice, and converted to the final prediction by argmax.
+Only the readout is optimized, using Adam with learning rate `2e-5` and batch size `32`, for at most `100` epochs. Early stopping monitors validation loss with patience `15`; the best model state is retained and restored before test inference. Cross-entropy operates on logits. At inference, softmax probabilities are computed independently for seeds 42, 43, and 44, averaged for each held-out slice, and converted to the final prediction by argmax.
 
 ## Trainable parameter count
 
