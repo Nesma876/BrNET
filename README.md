@@ -12,12 +12,14 @@ The repository separates three evidence levels:
 
 ## Canonical patient-disjoint results
 
-| Model | Slice accuracy | Patient accuracy |
-|---|---:|---:|
-| BrNet | 84.6606% | 86.2661% |
-| MobileNetV2 (corrected preprocessing) | 87.8590% | 87.5536% |
-| EfficientNetB7 | 89.0339% | 89.6996% |
-| ViT-B/16 | 86.6188% | 90.1288% |
+| Model | Slice accuracy | Slice macro-F1 | Slice macro-AUC | Patient accuracy |
+|---|---:|---:|---:|---:|
+| BrNet | 84.6606% | 82.9441% | 95.4447% | 86.2661% |
+| MobileNetV2 (corrected preprocessing) | 87.8590% | 86.4618% | 96.3524% | 87.5536% |
+| EfficientNetB7 | 89.0339% | 87.3442% | 97.0478% | 89.6996% |
+| ViT-B/16 | 86.6188% | 85.0866% | 96.3137% | 90.1288% |
+
+The patient-disjoint Figshare evaluation contains three tumor classes only (glioma, meningioma, and pituitary tumor); it does not evaluate patient-level healthy-versus-tumor discrimination.
 
 Canonical document-control values:
 
