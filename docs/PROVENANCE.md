@@ -10,27 +10,29 @@
 - Grad-CAM localization summaries directly aggregated from the surviving row-level table.
 - Executable BrNet architecture dimensions and parameter counts.
 
-## Results not claimed as independently reproduced
+## Later verified outputs with partial generating provenance
 
 ### External predictive performance
 
-The historical detailed external CSV belongs to a superseded preprocessing pipeline. The corrected four-class checkpoint required to regenerate a contamination-screened row-level evaluation was absent. The repository therefore retains the provenance/overlap audit but does not claim a corrected clean-subset accuracy.
+A later 452-row prediction table records 233 correct predictions after median filtering (51.55%; macro-F1 0.4235). The probability columns reproduce every recorded class prediction, and the 1,137-row exclusion manifest reconciles to 685 excluded and 452 retained images. The exact executed script and checkpoint file were not delivered with this table; only the checkpoint SHA-256 survives in the execution log. This is reported as a verified retrospective screened-subset output, not as independent external validation.
 
 ### Matched-area perturbation
 
-The corrected script fixes the control region once per image and reuses it across seeds, but the 15 fold/seed checkpoints and corrected row-level output were absent at final audit. Historical summary values are not included as finalized evidence.
+A later 2,594-row perturbation table contains 86 unavailable matched controls and 2,508 analyzable pairs. Direct patient-clustered bootstrap recomputation reproduces the reported estimates and intervals. The exact control-region coordinates or masks, the exact executed script, and hashes for the 15 fold/seed checkpoints were not delivered. The numerical output is therefore verified, but its full generating provenance is incomplete.
 
 ### Grad-CAM target aggregation
 
-The row-level localization table is retained. The seed-level checkpoints and maps required to independently re-establish whether all seeds used one pooled target class were absent. The repository does not claim that procedure as independently reproduced.
+The row-level localization table is retained. The seed-level checkpoints and maps required to independently re-establish whether all seeds used one pooled target class remain absent. The repository does not claim that procedure as independently reconstructed.
 
 ### Parameter randomization
 
-Only an aggregate summary survived; per-image maps and complete generating metadata were unavailable. No formal pass/fail claim is made.
+A later archive contains a 100-image sample manifest and 600 image-step similarity records for one checkpoint. Valid Spearman correlations range from 50/100 at the first step to 92--95/100 later because some maps are constant. Repeated GPU runs were not bit-identical. The analysis is descriptive only and no formal pass/fail claim is made.
 
 ### Compute benchmark
 
-The historical summary lacked raw timings and sufficient protocol metadata. Runtime superiority is not claimed.
+A later archive contains 100 batch-1 latency measurements and 20 batch-32 throughput measurements for each of BrNet, MobileNetV2, and EfficientNetB7, plus an environment log. BrNet had the lowest recorded median latency and highest recorded throughput in that run. ViT-B/16 was not measured, concurrent GPU activity was not recorded, and one BrNet latency measurement was a large outlier. Hardware-independent runtime superiority is not claimed.
+
+Machine-readable files, hashes, and detailed limitations are in `results/audit_v2/`.
 
 ## pHash denominator rules
 

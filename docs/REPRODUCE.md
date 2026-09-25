@@ -6,6 +6,7 @@ The four canonical row-level OOF tables are published under `results/row_level/`
 
 ```bash
 python scripts/verify_frozen_results.py
+python scripts/verify_audit_v2.py
 ```
 
 The command independently checks:

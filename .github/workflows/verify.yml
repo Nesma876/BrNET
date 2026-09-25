@@ -19,3 +19,5 @@ jobs:
         run: python -m pytest -q
       - name: Recompute frozen OOF comparisons
         run: python scripts/verify_frozen_results.py
+      - name: Reconcile later audit outputs
+        run: python scripts/verify_audit_v2.py

@@ -1,0 +1,41 @@
+=== Execution start: 2026-09-24T19:28:00.365696Z ===
+Python: 3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]
+Platform: Linux-6.12.90+-x86_64-with-glibc2.35
+TensorFlow: 2.20.0
+NumPy: 2.0.2
+
+=== Hardware / software environment ===
+GPU disponible: Tesla T4 x2
+GPU details (nvidia-smi): Tesla T4, 15360 MiB, driver 580.159.04
+CUDA (nvcc): release 12.8, V12.8.93
+CPU count: 4
+Memory: MemTotal 32870488 kB
+
+=== Parametres du benchmark ===
+Warmup latence: 10, runs chronometres latence: 100, batch latence: 1
+Warmup throughput: 5, runs chronometres throughput: 20, batch throughput: 32
+Precision numerique: float32
+Mode: eager execution
+
+=== RESULTATS ===
+model,n_params,latency_mean_ms,latency_median_ms,latency_sd_ms,throughput_images_per_sec
+BrNet,895812,77.936665,74.698551,25.158344,333.894371
+MobileNetV2,2422468,81.798567,80.810929,4.611987,220.009742
+EfficientNetB7,64426011,104.654942,104.091723,2.650622,79.469169
+
+NOTE: ViT-B/16 non mesure (implementation PyTorch separee). Le claim de
+vitesse doit etre limite explicitement aux trois CNN evalues ici.
+
+NOTE METHODOLOGIQUE: BrNet presente un ecart-type de latence (SD=25.16ms)
+nettement plus eleve que les deux autres modeles (4.61ms, 2.65ms), malgre
+un warmup identique de 10 iterations. Cause possible: modele le plus
+leger/rapide, donc plus sensible au bruit systeme (scheduling GPU, autres
+processus) en proportion de son temps d'execution total. A documenter
+comme limite dans le manuscrit plutot que masquer.
+
+Warnings NVIDIA lors du run EfficientNetB7 ("Delay kernel timed out:
+measured time has sub-optimal accuracy") signalent une limite de precision
+de mesure sur ce modele specifique, meme si les valeurs restent coherentes
+d'un run a l'autre.
+
+=== Execution end: 2026-09-24T19:30:03.044288Z ===

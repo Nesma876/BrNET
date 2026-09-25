@@ -4,10 +4,11 @@
 
 Code and frozen numerical outputs accompanying the BrNet major revision.
 
-The repository separates two evidence levels:
+The repository separates three evidence levels:
 
 1. **Frozen and reproducible from archived prediction tables**: patient-disjoint OOF metrics, patient aggregation, exact McNemar tests, Holm correction, calibration, pHash denominator accounting, architecture dimensions, and row-level Grad-CAM localization summaries.
-2. **Code available, artifacts incomplete**: corrected external inference, fixed matched-area perturbation, parameter-randomization reconstruction, and historical GPU timing. These scripts are included for transparency, but their historical numerical summaries must not be treated as independently reproduced without the checkpoints or raw outputs listed in [`docs/PROVENANCE.md`](docs/PROVENANCE.md).
+2. **Verified from newly archived row-level outputs, with partial generating provenance**: screened external predictions and matched-area perturbation outputs. Their numerical summaries can be recalculated, but the exact executed scripts and required checkpoint files were not included with the received archive.
+3. **Descriptive or environment-specific audits**: the single-checkpoint Grad-CAM randomization analysis and the three-CNN compute benchmark. These do not establish a formal XAI pass or hardware-independent runtime superiority.
 
 ## Canonical patient-disjoint results
 
@@ -27,6 +28,13 @@ Canonical document-control values:
 - The historical **70.84%** value is withdrawn as unreconstructable; it is not interpreted as directly comparable to or corrected by **84.6606%**.
 - The historical **96.44%** value is retained only as a descriptive benchmark and is not used for model selection, uncertainty estimation, or inferential comparison.
 
+Additional audited outputs received after the initial artifact freeze are documented in [`results/audit_v2/`](results/audit_v2/README.md):
+
+- screened nominally external subset: **233/452 = 51.55%** accuracy and macro-F1 **0.4235**; this is a retrospective result on a highly imbalanced residual subset, not independent external validation;
+- matched-area perturbation: **2,594** eligible images, **86** unavailable controls, and **2,508** analyzable pairs; the patient-clustered paired differences are **0.0578** for class-change rate (95% CI **0.0398–0.0790**) and **0.0371** for target-class probability (95% CI **0.0249–0.0520**);
+- Grad-CAM parameter randomization: exploratory single-checkpoint results only; mean $\rho$ was **0.5688** for 50/100 valid correlations at step 1 and **0.1198** for 95/100 at step 2, with **92–95/100** valid correlations thereafter;
+- compute benchmark: BrNet median batch-1 latency **74.70 ms** and batch-32 throughput **333.89 images/s**, compared descriptively with MobileNetV2 and EfficientNetB7 under the recorded environment.
+
 Slice-level paired comparisons are secondary/descriptive because slices are clustered within patients. Patient-level comparisons are the primary inferential analysis. Nonsignificant patient-level results are not interpreted as equivalence or non-inferiority.
 
 The exact frozen tables are in [`results/FROZEN_MODEL_COMPARISON.csv`](results/FROZEN_MODEL_COMPARISON.csv). The published row-level OOF tables can be checked in one command:
@@ -39,11 +47,12 @@ See [`docs/REPRODUCE.md`](docs/REPRODUCE.md) for the checks performed.
 
 ## Repository layout
 
-- `scripts/`: historical experiment and revision scripts, preserved with their exact preprocessing and model definitions.
+- `scripts/`: reference experiment and revision scripts preserving the documented preprocessing and model definitions; later received outputs may not have byte-identical generating scripts.
 - `src/`: reusable data, model, evaluation, statistics, and XAI modules.
 - `configs/`: frozen protocol and model configurations.
 - `data/manifests/`: lightweight dataset manifests; raw MRI data are not distributed.
 - `results/`: canonical small numerical tables used in the paper revision.
+- `results/audit_v2/`: later row-level outputs, raw compute timings, execution logs, and an evidence-level manifest.
 - `tests/`: integrity and metric tests.
 - `docs/`: provenance, script inventory, and known limitations.
 - `supplementary/`: fold-by-seed stability tables and the machine-readable Figure 3 selection.
@@ -65,9 +74,10 @@ Dataset and checkpoint locations in the historical Kaggle scripts are constants 
 
 - Raw medical images are not committed.
 - Model checkpoints are not committed.
-- The corrected four-class checkpoint needed for the contamination-screened external evaluation was unavailable at final audit; no corrected external accuracy is claimed here.
-- The 15 BrNet fold/seed checkpoints needed to reconstruct corrected matched-area and seed-level Grad-CAM procedures were unavailable at final audit.
-- Historical runtime summaries lacked raw timing logs and are not included as evidence of controlled speed superiority.
+- The screened external prediction table is archived, but the four-class checkpoint file and exact executed script are not. Its recorded checkpoint SHA-256 is provided in the execution log.
+- The matched-area row-level output is archived, but the 15 checkpoint hashes and exact control-region coordinates/masks are not.
+- The Grad-CAM randomization analysis uses one checkpoint and is not bit-identical across repeated GPU runs; it is descriptive only.
+- Raw compute timings and an environment log are archived for three CNNs. ViT-B/16 was not measured, concurrent GPU activity was not recorded, and one BrNet latency run was an outlier. Runtime results are environment-specific and descriptive.
 
 ## Key implementation details
 

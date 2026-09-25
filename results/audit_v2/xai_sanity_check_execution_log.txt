@@ -1,0 +1,61 @@
+=== Execution start: 2026-09-24T19:30:43.292675Z ===
+Python: 3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]
+Platform: Linux-6.12.90+-x86_64-with-glibc2.35
+TensorFlow: 2.20.0
+NumPy: 2.0.2
+SciPy: 1.16.3
+GPU devices: [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU'), PhysicalDevice(name='/physical_device:GPU:1', device_type='GPU')]
+Sampling seed (RNG_SEED): 42
+Randomization seed (rng_random): 42
+
+=== Échantillon d'images Figshare ===
+Échantillon : 100 images (sur 3064 total)
+Checkpoint: brnet_fold1_seed42_oof.weights.h5
+SHA-256: f23e35f33d6a2af06c30d9cd4d69dd77f5348fc4e404b33726794f92a5eee8b0
+Confirmation: fold1/seed42 (nom du fichier de poids)
+
+=== Chargement du modèle entraîné (brnet_fold1_seed42_oof.weights.h5) ===
+
+=== Étape 1 : cartes Grad-CAM ORIGINALES (aucune randomisation) ===
+Cartes de référence calculées.
+Manifeste de l'échantillon sauvegardé : xai_sanity_check_sample_manifest.csv
+
+=== Étape 2 : randomisation cascade, couche par couche ===
+
+--- Randomisation cumulative jusqu'à 'dense_out' (étape 1/6) ---
+n_valid=50, mean_rho=0.5688, median_rho=0.6187, sd_rho=0.2907, CI95(approx)=+/-0.0806, mean_ssim=0.2597
+
+--- Randomisation cumulative jusqu'à 'dense1' (étape 2/6) ---
+n_valid=95, mean_rho=0.1198, median_rho=0.1414, sd_rho=0.3399, CI95(approx)=+/-0.0684, mean_ssim=0.0905
+
+--- Randomisation cumulative jusqu'à 'last_conv' (étape 3/6) ---
+n_valid=95, mean_rho=0.2589, median_rho=0.2598, sd_rho=0.2770, CI95(approx)=+/-0.0557, mean_ssim=0.1102
+
+--- Randomisation cumulative jusqu'à 'conv3' (étape 4/6) ---
+n_valid=94, mean_rho=0.1285, median_rho=0.0941, sd_rho=0.2383, CI95(approx)=+/-0.0482, mean_ssim=0.0890
+
+--- Randomisation cumulative jusqu'à 'conv2' (étape 5/6) ---
+n_valid=94, mean_rho=-0.0192, median_rho=-0.0476, sd_rho=0.1856, CI95(approx)=+/-0.0375, mean_ssim=0.0130
+
+--- Randomisation cumulative jusqu'à 'conv1' (étape 6/6) ---
+n_valid=92, mean_rho=0.2279, median_rho=0.1709, sd_rho=0.2647, CI95(approx)=+/-0.0541, mean_ssim=0.1374
+
+=== RÉSUMÉ COMPLET (agrégé par étape) ===
+ step layer_randomized                 cumulative_layers_randomized  n_valid  mean_spearman_rho  median_spearman_rho  sd_spearman_rho  ci95_spearman_rho  mean_ssim
+    1        dense_out                                    dense_out       50           0.568758             0.618743         0.290652           0.080565   0.259665
+    2           dense1                             dense_out,dense1       95           0.119773             0.141366         0.339921           0.068355   0.090499
+    3        last_conv                   dense_out,dense1,last_conv       95           0.258851             0.259789         0.276976           0.055698   0.110159
+    4            conv3             dense_out,dense1,last_conv,conv3       94           0.128462             0.094082         0.238336           0.048182   0.089040
+    5            conv2       dense_out,dense1,last_conv,conv3,conv2       94          -0.019188            -0.047620         0.185569           0.037514   0.012957
+    6            conv1 dense_out,dense1,last_conv,conv3,conv2,conv1       92           0.227910             0.170863         0.264721           0.054094   0.137443
+
+=== Interprétation (DESCRIPTIVE, PAS de critère de succès post-hoc) ===
+Similarité après randomisation de la seule dernière couche (dense_out) : rho=0.5688
+Similarité après randomisation cumulative de tout le réseau : rho=0.2279
+
+Formulation retenue (pas de seuil de succès pré-défini codé en dur ici ; l'ancienne version de ce script appliquait un critère post-hoc 'first_step_rho < 0.5' qui n'est PAS satisfait (0.6173 > 0.5) et a été retiré) :
+"Similarity decreased markedly after cumulative randomization through the dense layer, although the analysis was exploratory and based on one checkpoint (fold1/seed42) and 100 sampled images. A definitive sanity-check conclusion would require repeating this analysis across multiple checkpoints/folds."
+
+Fichiers sauvegardés : xai_sanity_check_cascade_summary.csv (agrégé), xai_sanity_check_per_image.csv (détail 600 lignes), xai_sanity_check_sample_manifest.csv (échantillon)
+Log complet : xai_sanity_check_execution_log.txt
+=== Execution end: 2026-09-24T19:31:32.840768Z ===

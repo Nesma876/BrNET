@@ -18,3 +18,21 @@ external_unique_validation_match,78,685 contaminated external images
 external_unique_test_match,79,685 contaminated external images
 historical_patient_disjoint_percent,70.84,withdrawn as unreconstructable
 historical_legacy_percent,96.44,descriptive only
+screened_external_correct,233,452 images without a detected pHash match
+screened_external_accuracy_percent,51.55,retrospective partial-provenance sensitivity result
+screened_external_macro_f1,0.4235,retrospective partial-provenance sensitivity result
+matched_area_eligible,2594,correctly classified images with masks
+matched_area_excluded,86,no valid matched control generated
+matched_area_analyzable_pairs,2508,patient-clustered paired analysis
+matched_area_class_change_difference,0.0578,95% CI 0.0398 to 0.0790
+matched_area_probability_difference,0.0371,95% CI 0.0249 to 0.0520
+xai_randomization_step1_valid,50,100 sampled images
+xai_randomization_step1_mean_rho,0.5688,descriptive single-checkpoint analysis
+xai_randomization_step2_valid,95,100 sampled images
+xai_randomization_step2_mean_rho,0.1198,descriptive single-checkpoint analysis
+compute_brnet_median_latency_ms,74.70,batch 1 environment-specific
+compute_mobilenetv2_median_latency_ms,80.81,batch 1 environment-specific
+compute_efficientnetb7_median_latency_ms,104.09,batch 1 environment-specific
+compute_brnet_throughput_images_per_sec,333.89,batch 32 environment-specific
+compute_mobilenetv2_throughput_images_per_sec,220.01,batch 32 environment-specific
+compute_efficientnetb7_throughput_images_per_sec,79.47,batch 32 environment-specific

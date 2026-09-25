@@ -197,9 +197,7 @@ if __name__ == "__main__":
     last_step_rho = results_df.iloc[-1]["mean_spearman_rho"]
     print(f"Similarité après randomisation SEULE dernière couche : rho={first_step_rho:.4f}")
     print(f"Similarité après randomisation TOTALE : rho={last_step_rho:.4f}")
-    if first_step_rho < 0.5:
-        print(">>> Grad-CAM change RAPIDEMENT -- dépend bien des poids appris (test PASSÉ)")
-    else:
-        print(">>> Grad-CAM reste SIMILAIRE -- problème plus fondamental avec la méthode")
+    print(">>> Analyse descriptive uniquement : aucun seuil post-hoc PASS/FAIL n'est appliqué.")
+    print(">>> Une conclusion formelle exige plusieurs checkpoints et la conservation des résultats par image.")
 
     print("\nFichier sauvegardé : xai_sanity_check_cascade.csv")

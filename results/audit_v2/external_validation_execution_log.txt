@@ -1,0 +1,65 @@
+=== Execution start: 2026-09-24T19:23:14.132989Z ===
+Python: 3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]
+Platform: Linux-6.12.90+-x86_64-with-glibc2.35
+TensorFlow: 2.20.0
+NumPy: 2.0.2
+GPU devices: [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU'), PhysicalDevice(name='/physical_device:GPU:1', device_type='GPU')]
+
+=== Étape 1 : identifier les images externes SANS quasi-duplicat ===
+Images externes contaminées (quasi-duplicat détecté) : 685
+Total images externes trouvées : 1137
+Fichier complet (propres + exclues) sauvegardé : external_all_files_with_exclusion_flag.csv
+Images externes PROPRES (sans quasi-duplicat) : 452
+
+=== Répartition des images propres par classe ===
+class
+healthy       236
+glioma        113
+meningioma     98
+pituitary       5
+Name: count, dtype: int64
+
+=== Étape 2 : checkpoint et hash ===
+Checkpoint: /kaggle/input/datasets/souaadrahmoun/mcnemarbrent/brnet_weights_mcnemar.weights.h5
+SHA-256: 193d7032f113f2ed6f0e4c1724003b44f3e6b887492d37c2b4e32d9ffa7b2a13
+Poids chargés depuis /kaggle/input/datasets/souaadrahmoun/mcnemarbrent/brnet_weights_mcnemar.weights.h5
+Ordre exact des classes en sortie softmax : ['glioma', 'healthy', 'meningioma', 'pituitary']
+Filtre médian 3x3 appliqué (cv2.medianBlur, kernel=3) : OUI, confirmé ligne par ligne ci-dessous
+
+452 images évaluées avec succès
+
+======================================================================
+RÉSULTAT -- VALIDATION EXTERNE SUR IMAGES PROPRES (SANS DUPLICATS)
+======================================================================
+n images = 452
+n correct = 233
+Accuracy = 233/452 = 0.5155 (51.55%)
+Macro-F1 : 0.4235
+
+Comparaison :
+  Résultat ORIGINAL (1137 images, CONTAMINÉES) : 80.74%
+  Résultat SUR IMAGES PROPRES, AVEC filtre médian (corrigé) (452 images) : 51.55%
+
+--- Rapport de classification détaillé ---
+              precision    recall  f1-score   support
+
+      glioma       0.50      0.56      0.53       113
+     healthy       0.62      0.51      0.56       236
+  meningioma       0.43      0.49      0.46        98
+   pituitary       0.09      0.40      0.15         5
+
+    accuracy                           0.52       452
+   macro avg       0.41      0.49      0.42       452
+weighted avg       0.54      0.52      0.53       452
+
+
+--- Matrice de confusion ---
+            glioma  healthy  meningioma  pituitary
+glioma          63       36           9          5
+healthy         61      120          52          3
+meningioma       2       36          48         12
+pituitary        0        1           2          2
+
+Détail sauvegardé dans results_external_validation_clean.csv (452 lignes)
+Log complet sauvegardé dans external_validation_execution_log.txt
+=== Execution end: 2026-09-24T19:23:54.706132Z ===
