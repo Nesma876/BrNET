@@ -55,7 +55,7 @@ See [`docs/REPRODUCE.md`](docs/REPRODUCE.md) for the checks performed.
 - `results/audit_v2/`: later row-level outputs, raw compute timings, execution logs, and an evidence-level manifest.
 - `tests/`: integrity and metric tests.
 - `docs/`: provenance, script inventory, and known limitations.
-- `supplementary/`: fold-by-seed stability tables and the machine-readable Figure 3 selection.
+- `supplementary/`: submission-ready `Online_Resource_1.tex`, fold-by-seed stability tables, and the machine-readable Figure 3 selection.
 
 ## Environment
 

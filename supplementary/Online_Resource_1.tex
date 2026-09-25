@@ -1,0 +1,87 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1.8cm]{geometry}
+\usepackage{booktabs,longtable,url}
+\begin{document}
+\begin{center}
+{\Large\bfseries Online Resource 1}\par
+\textit{BrNet: A Lightweight CNN for Brain Tumor MRI Classification with Audits of Generalization and Explanation Localization}\par
+Zineb Aziza El Aouaber, Souaad Hamza-Cherif, Adil Gaouar, and Nesma Settouti
+\end{center}
+
+\section*{Evidence labels}
+Table~S1 derives from the archived fold-by-seed patient-disjoint summary. Tables~S2--S4 are directly recalculable from later-recovered row-level or raw timing outputs, but are secondary analyses with incomplete generating provenance. They support sensitivity or descriptive reporting only.
+
+\section*{Table S1: patient-disjoint fold-by-seed results}
+\begin{longtable}{rrrrrrr}
+\toprule
+Fold & Seed & Train & Inner val. & Test & Accuracy & Macro-F1 \\
+\midrule
+1&42&2252&199&613&0.7031&0.6729\\
+1&43&2252&199&613&0.7716&0.6980\\
+1&44&2252&199&613&0.7912&0.7556\\
+2&42&2188&263&613&0.8548&0.8522\\
+2&43&2188&263&613&0.8548&0.8542\\
+2&44&2188&263&613&0.8597&0.8516\\
+3&42&2148&303&613&0.8515&0.8388\\
+3&43&2148&303&613&0.8206&0.7960\\
+3&44&2148&303&613&0.8532&0.8285\\
+4&42&2217&234&613&0.8467&0.8493\\
+4&43&2217&234&613&0.8385&0.8284\\
+4&44&2217&234&613&0.8711&0.8718\\
+5&42&2237&215&612&0.8431&0.7953\\
+5&43&2237&215&612&0.8301&0.7827\\
+5&44&2237&215&612&0.8268&0.7776\\
+\bottomrule
+\end{longtable}
+The canonical pooled OOF estimate is computed after per-image probability averaging across seeds, not by averaging these 15 accuracies.
+
+\section*{Table S2: matched-area perturbation sensitivity analysis}
+The recovered table contains 2,594 correctly classified images with masks. A valid matched control was unavailable for 86, leaving 2,508 pairs. Parentheses give patient-clustered 95\% confidence intervals from 2,000 bootstrap replications (seed 123).
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Perturbation & Class-change rate & Probability reduction \\
+\midrule
+Tumor region & 0.0625 (0.0438--0.0841) & 0.0380 (0.0261--0.0524)\\
+Matched control & 0.0044 (0.0017--0.0077) & 0.0014 (0.0005--0.0022)\\
+Paired difference & 0.0578 (0.0398--0.0790) & 0.0371 (0.0249--0.0520)\\
+\bottomrule
+\end{tabular}
+\end{center}
+Exact control-region coordinates and complete hashes/provenance of the 15 generating checkpoints were not retained. This is a partially traceable sensitivity analysis, not evidence of causal explanation faithfulness.
+
+\section*{Table S3: exploratory parameter randomization}
+This analysis used 100 sampled images and one checkpoint. Constant maps produced undefined correlations; repeated GPU runs were not bit-identical. No pass/fail designation is assigned.
+\begin{center}\small
+\begin{tabular}{clrrrr}
+\toprule
+Step & Layer & Valid $n$ & Mean $\rho$ & Median $\rho$ & Mean SSIM\\
+\midrule
+1&dense\_out&50&0.5688&0.6187&0.2597\\
+2&dense1&95&0.1198&0.1414&0.0905\\
+3&last\_conv&95&0.2589&0.2598&0.1102\\
+4&conv3&94&0.1285&0.0941&0.0890\\
+5&conv2&94&$-0.0192$&$-0.0476$&0.0130\\
+6&conv1&92&0.2279&0.1709&0.1374\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Table S4: environment-specific compute measurements}
+Timing used random float32 inputs in one recorded Tesla T4 environment. ViT-B/16 was not measured, concurrent GPU activity was not logged, and one BrNet latency observation was a large outlier.
+\begin{center}
+\begin{tabular}{lrrrr}
+\toprule
+Model & Parameters & Median ms & Mean $\pm$ SD ms & Images/s\\
+\midrule
+BrNet&895,812&74.70&$77.94\pm25.16$&333.89\\
+MobileNetV2&2,422,468&80.81&$81.80\pm4.61$&220.01\\
+EfficientNetB7&64,426,011&104.09&$104.65\pm2.65$&79.47\\
+\bottomrule
+\end{tabular}
+\end{center}
+These measurements do not establish hardware-independent runtime superiority.
+
+\section*{Machine-readable artifacts}
+Source tables, row-level outputs, logs, and the evidence-level manifest are stored in \texttt{supplementary/} and \texttt{results/audit\_v2/} of \url{https://github.com/Nesma876/BrNET}.
+\end{document}
