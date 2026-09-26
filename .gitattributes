@@ -1,0 +1,5 @@
+# Preserve byte hashes of prospectively frozen manifests/configuration across hosts.
+data/manifests/*.csv -text
+configs/*.yaml -text
+configs/models/*.yaml -text
+results/folds/*.csv -text

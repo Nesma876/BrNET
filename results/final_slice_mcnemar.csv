@@ -1,0 +1,4 @@
+Comparison,n00,n01,n10,n11,raw_p,Holm_adjusted_p,reject_at_0.05,arithmetic_identity_ok
+BrNet vs MobileNetV2 corrected,185,285,187,2407,7.466226352130249e-06,1.4932452704260497e-05,True,True
+BrNet vs EfficientNetB7,154,316,182,2412,2.0321102043176834e-09,6.09633061295305e-09,True,True
+BrNet vs ViT-B/16,196,274,214,2380,0.007503832239421914,0.007503832239421914,True,True

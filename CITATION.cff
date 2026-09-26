@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: "If you use this code or its archived numerical results, please cite the associated BrNet paper."
+type: software
+title: "BrNet reproducibility repository"
+repository-code: "https://github.com/Nesma876/BrNET"
+date-released: 2026-09-23
+authors:
+  - given-names: "Zineb Aziza"
+    family-names: "El Aouaber"
+    email: "zinebaziza.elaouaber@univ-tlemcen.dz"
+    affiliation: "Biomedical Engineering Laboratory, University of Tlemcen, Algeria"
+  - given-names: "Souaad"
+    family-names: "Hamza-Cherif"
+    email: "souad.hamzacherif@univ-tlemcen.dz"
+    affiliation: "Biomedical Engineering Laboratory, University of Tlemcen, Algeria"
+  - given-names: "Adil"
+    family-names: "Gaouar"
+    email: "adil.gaouar@univ-tlemcen.dz"
+    affiliation: "Biomedical Engineering Laboratory, University of Tlemcen, Algeria"
+  - given-names: "Nesma"
+    family-names: "Settouti"
+    email: "nesma.settouti@isen-ouest.yncrea.fr"
+    affiliation: "LabISEN -- Yncréa Ouest, Caen, France"
+abstract: >-
+  Code, configurations, manifests, row-level prediction artifacts, and
+  frozen numerical outputs accompanying the BrNet major revision.
+keywords:
+  - brain tumor MRI
+  - convolutional neural network
+  - patient-disjoint evaluation
+  - model comparison
+  - explainable artificial intelligence
+  - dataset provenance
+preferred-citation:
+  type: article
+  title: "BrNet: A Lightweight CNN for Brain Tumor MRI Classification with a Quantitative Audit of Generalization and Explanation Faithfulness"
+  authors:
+    - given-names: "Zineb Aziza"
+      family-names: "El Aouaber"
+    - given-names: "Souaad"
+      family-names: "Hamza-Cherif"
+    - given-names: "Adil"
+      family-names: "Gaouar"
+    - given-names: "Nesma"
+      family-names: "Settouti"
+  notes: "Zineb Aziza El Aouaber and Nesma Settouti contributed equally to this work."

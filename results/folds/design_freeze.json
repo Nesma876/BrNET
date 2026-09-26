@@ -1,0 +1,11 @@
+{
+  "setup_commit": "0a01690dec6fdd062ca84e6591b6487d0ef9f46a",
+  "leakage_checks": "PASS",
+  "outer_test_coverage": "exactly_once_per_image",
+  "sha256": {
+    "data/manifests/figshare_patient_fold_manifest.csv": "6c72dfbaa86d894028e30f934c944493a4d5f1c7c1aca98088e6b47ec4e0461d",
+    "data/manifests/figshare_image_fold_manifest.csv": "9e06aba7c0aefe177bc227bddd51dabebfab30ae7cc134d6d0ad816199ace8d0",
+    "configs/track_a_primary.yaml": "eac718ce0cceb8dff60d7c1db2d7aa9808942e5f57a87cc74ff0210dd47851c8",
+    "results/folds/figshare_fold_summary.csv": "945569dd1950bf9314f1b71f1815b263f9b4de45b18cf5434b0ad34d0d2b4908"
+  }
+}

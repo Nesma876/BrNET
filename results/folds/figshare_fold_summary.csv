@@ -1,0 +1,16 @@
+outer_fold,subset,n_patients,n_images,glioma_patients,glioma_images,meningioma_patients,meningioma_images,pituitary_patients,pituitary_images
+0,test,47,649,17,272,17,179,13,198
+0,train,148,1970,55,915,50,406,43,649
+0,validation,38,445,17,239,15,123,6,83
+1,test,47,554,17,242,15,115,15,197
+1,train,148,2028,56,987,54,457,38,584
+1,validation,38,482,16,197,13,136,9,149
+2,test,46,607,18,280,18,164,10,163
+2,train,149,1898,56,906,51,389,42,603
+2,validation,38,559,15,240,13,155,10,164
+3,test,47,629,19,296,16,133,12,200
+3,train,149,1936,58,973,50,386,41,577
+3,validation,37,499,12,157,16,189,9,153
+4,test,46,625,18,336,16,117,12,172
+4,train,149,1904,56,852,52,436,41,616
+4,validation,38,535,15,238,14,155,9,142

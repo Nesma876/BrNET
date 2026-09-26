@@ -16,7 +16,7 @@ def make_splits(frame, seed=2026):
     outer=StratifiedGroupKFold(5,shuffle=True,random_state=seed)
     for fold,(training,test) in enumerate(outer.split(patients,patients.label,patients.patient_id)):
         pool=patients.iloc[training]
-        inner=StratifiedGroupKFold(5,shuffle=True,random_state=seed+fold+1)
+        inner=StratifiedGroupKFold(5,shuffle=True,random_state=seed)
         a,b=next(inner.split(pool,pool.label,pool.patient_id))
         train_ids=pool.iloc[a].patient_id;val_ids=pool.iloc[b].patient_id;test_ids=patients.iloc[test].patient_id
         assert_disjoint(train_ids,val_ids,test_ids)
